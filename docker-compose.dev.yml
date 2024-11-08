@@ -1,0 +1,95 @@
+services:
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend
+    restart: always
+    volumes:
+      - backend_static:/app/static
+    expose:
+      - "8000"
+    ports:
+      - 8000:8000
+    environment:
+      - PG_DATABASE_URL=postgresql+asyncpg://fastapi:fastapi@db:5432/postgres
+      - SECRET_KEY=secretsecret
+      - ALGORITHM=HS256
+      - ACCESS_TOKEN_EXPIRE_MINUTES=30
+      - JAEGER_FASTAPI_SERVICE=FastAPI
+      - JAEGER_SERVICE_DOMAIN=http://jaeger:4317
+      - ENVIRONMENT=development
+    entrypoint: ["/app/scripts/start-backend.dev.sh"]
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    container_name: postgresql_db
+    image: postgres:16-alpine
+    volumes:
+      - db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=fastapi
+      - POSTGRES_PASSWORD=fastapi
+    expose:
+      - "5432"
+    ports:
+      - "5435:5432"
+    healthcheck:
+      test:
+        [
+            "CMD-SHELL", "pg_isready -U postgres"
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    depends_on:
+      opensearch:
+        condition: service_healthy
+    ports:
+      - "5775:5775/udp"
+      - "6831:6831/udp"
+      - "6832:6832/udp"
+      - "5778:5778"
+      - "16686:16686"
+      - "14250:14250"
+      - "14268:14268"
+      - "14269:14269"
+      - "4317:4317"
+      - "4318:4318"
+      - "9411:9411"
+    environment:
+      COLLECTOR_OTLP_ENABLED: "true"
+      SPAN_STORAGE_TYPE: "elasticsearch"
+      ES_SERVER_URLS: http://opensearch:9200
+      ES_TLS_SKIP_HOST_VERIFY: "true"
+      ES_TLS_ENABLED: "true"
+      ES_VERSION: "7"
+
+  opensearch:
+    image: opensearchproject/opensearch:2.11.0
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9200"]
+      interval: 2s
+      timeout: 60s
+      retries: 20
+    environment:
+      - discovery.type=single-node
+      - network.host=0.0.0.0
+      - plugins.security.disabled=true
+    volumes:
+      - opensearch-data:/usr/share/opensearch/data
+      - opensearch-logs:/usr/share/opensearch/logs
+
+volumes:
+  db: {}
+  backend_static: {}
+  opensearch-data: {}
+  opensearch-logs: {}
