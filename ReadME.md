@@ -1,36 +1,58 @@
-# FastAPI + Docker + Alembic + Poetry Boilerplate  
+# 🚀 FastAPI + PostgreSQL + Jaeger + Docker Boilerplate 🌟
 
-Welcome to the FastAPI + Docker + Alembic + Poetry boilerplate project! This repository serves as a foundation for building modern web applications with FastAPI, containerized with Docker, managed dependencies with Poetry, and database migrations with Alembic.  
+Welcome to the **FastAPI + PostgreSQL + Jaeger + Docker** boilerplate project! This repository is your go-to template for building robust, high-performance web applications leveraging the power of FastAPI, containerization through Docker, a seamless PostgreSQL database, and comprehensive monitoring with Jaeger. Dive in and unlock the potential for modern web development excellence!
 
-## Table of Contents  
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Running the Application](#running-the-application)
-- [Contributing](#contributing)
-- [License](#license)
+![image](https://github.com/user-attachments/assets/66d965ec-9e44-4871-850d-3289471620a2)
 
-## Prerequisites  
+## 🎯 Project Overview
 
-Ensure you have the following installed on your machine:  
-- Python 3.8+
+This boilerplate serves as a solid foundation to kick-start your APIs with:
 
-## Installation  
+- **FastAPI**: Experience the speed and performance of one of the fastest Python web frameworks.
+- **PostgreSQL**: Manage your data with the world's most advanced open-source relational database.
+- **Jaeger**: Trace and monitor distributed systems with ease, ensuring you always know what's going on.
+- **Docker**: Containerize your app for consistent and repeatable deployments across various environments.
 
-1. **Clone the Repository:**  
-   ```bash  
-   git clone https://github.com/yourusername/fastapi-docker-alembic-poetry-boilerplate.git
-   cd fastapi-docker-alembic-poetry-boilerplate
+## 🌐 Key Features
 
-2. **Install Dependencies:**  
-   ```bash  
-   Install docker
-   ```
-   You can use this like: https://codewithkarani.com/2024/04/06/beginners-guide-to-installing-docker-on-ubuntu-22-04-a-step-by-step-tutorial/
+- **Scalability**: Utilizing FastAPI's asynchronous capabilities to handle high traffic loads.
+- **Data Management**: PostgreSQL offers reliable ACID transactions and powerful querying.
+- **Observability**: Integrated Jaeger tracing for detailed system performance insights.
+- **Portability**: Docker guarantees your app runs without issues across different systems.
 
-## Running the Application
-   Open terminal and run this command:
-   ```bash  
-   docker compose -f docker-compose.dev.yml
-   ```
+## 📦 Tech Stack
 
-Now you can check the project at http://localhost:8000 and the docs are available at http://localhost:8000/docs.
+- **Backend Framework**: FastAPI 🐍
+- **Database**: PostgreSQL 🗄️
+- **Tracing and Monitoring**: Jaeger 👀
+- **Containerization**: Docker 🐋
+
+## 🔧 Getting Started
+
+Clone the repository:
+```bash
+git clone https://github.com/yourusername/fastapi-postgresql-jaeger-docker-boilerplate.git
+cd fastapi-postgresql-jaeger-docker-boilerplate
+```
+
+Build and run your Docker containers:
+```bash
+docker-compose up --build
+```
+
+Your FastAPI application should now be live at `http://localhost:8000`!
+
+## 🛠️ Configuration
+
+- **Environment Variables**: Customize your `.env` file for both local development and production environments. Set your database URLs, credentials, and other environment-specific settings to ensure seamless operations.
+- **Jaeger Setup**: Connect your application seamlessly with Jaeger by configuring tracing in `config.yml`. Ensure you're capturing the right spans and logs to diagnose issues effectively.
+
+## 🚀 Deployment
+
+Deploy your application effortlessly using Docker. With pre-defined Docker configurations, promoting your app from development to production is smooth and efficient. Containerization ensures that your application behaves consistently across all environments. Explore cloud deployment options on AWS, Azure, or Google Cloud for scalable hosting.
+
+## 🤝 Acknowledgments
+
+A big thank you to the following:
+
+- The developers and maintainers of [FastAPI](https://fastapi.tiangolo.com/), [PostgreSQL](https://www.postgresql.org/), [Jaeger](https://www.jaegertracing.io/), and [Docker](https://www.docker.com/) for creating the amazing tools this boilerplate leverages!
